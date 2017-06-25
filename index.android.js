@@ -32,11 +32,24 @@ export default class LessonList extends Component {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg',
     },
   ];
+
+  renderSeparator = () =>
+    <View
+      style={{
+        height: 1,
+        width: "86%",
+        backgroundColor: "#CED0CE",
+        marginLeft: "14%"
+      }}
+    />;
+
   render() {
     return (
       <List>
         <FlatList
           data={this.lesssons}
+          ItemSeparatorComponent={this.renderSeparator}
+          ListHeaderComponent={() => <Text>Select Lesson</Text>}
           renderItem={({ item }) => (
             <ListItem
               roundAvatar
