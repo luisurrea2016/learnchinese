@@ -32,7 +32,7 @@ export default class LessonList  extends Component {
   ];
   render() {
     return (
-      <View style={{alignItems: 'center'}}>
+      <View style={{flex: 1}}>
        <Text>Select Your Lesson</Text>
        {
          this.lesssons.map(lesson => <Lesson name={lesson.name} uri={lesson.uri}/>)
