@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Text,
-  View
 } from 'react-native';
 
-import { Lesson } from './app/components/lesson';
+import {
+  List,
+  ListItem,
+} from "react-native-elements";
 
-export default class LessonList  extends Component {
+
+export default class LessonList extends Component {
   lesssons = [
     {
       name: 'foo',
@@ -32,12 +34,19 @@ export default class LessonList  extends Component {
   ];
   render() {
     return (
-      <View style={{flex: 1}}>
-       <Text>Select Your Lesson</Text>
-       {
-         this.lesssons.map(lesson => <Lesson name={lesson.name} uri={lesson.uri}/>)
-       }
-      </View>
+      <List>
+        <FlatList
+          data={this.lesssons}
+          renderItem={({ item }) => (
+            <ListItem
+              roundAvatar
+              title={item.name}
+              subtitle={item.label}
+              avatar={{ uri: item.uri }}
+            />
+          )}
+        />
+      </List>
     );
   }
 }
