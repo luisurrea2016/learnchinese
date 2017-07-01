@@ -1,6 +1,9 @@
-import Api from '../services'
-
-export const SET_FETCHED_LESSONS = 'SET_FETCHED_LESSONS';
+import Api from '../services';
+import {
+    FETCHING_LESSONS,
+    FETCHED_LESSONS_SUCCESS,
+    FETCHED_LESSONS_FAILURE
+} from './types';
 
 export function fetchLessons() {
     return (dispatch, getSate) => {
@@ -9,17 +12,30 @@ export function fetchLessons() {
             'p=2'
         ].join('&');
 
-        return Api.get(`/api/?${params}`).then(resp => {
-            dispatch(setFetchedLessons({ lessons: resp }));
-        }).catch(error => {
-            console.log(error);
-        });
+        dispatch(fetchingLessons());
+
+        return Api.get(`/api/?${params}`)
+            .then(resp => dispatch(fetchedLessonsSuccess(resp)))
+            .catch(error => dispatch(fetchedLessonsFailure(error)));
     };
 }
 
-export function setFetchedLessons({ lessons }) {
+export function fetchingLessons() {
     return {
-        type: SET_FETCHED_LESSONS,
+        type: FETCHING_LESSONS,
+    }
+}
+
+export function fetchedLessonsSuccess(lessons) {
+    return {
+        type: FETCHED_LESSONS_SUCCESS,
         lessons,
+    }
+}
+
+export function fetchedLessonsFailure(error) {
+    return {
+        type: FETCHED_LESSONS_FAILURE,
+        error,
     }
 }

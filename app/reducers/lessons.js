@@ -1,15 +1,40 @@
 import createReducer from '../services';
-import SET_FETCHED_LESSONS from '../actions'
+import {
+    FETCHING_LESSONS,
+    FETCHED_LESSONS_SUCCESS,
+    FETCHED_LESSONS_FAILURE
+} from '../actions'
 
-export const fetchedLessons = createReducer({}, {
-    [SET_FETCHED_LESSONS](state, action) {
-        //@TODO: rfactor this into a reducer.
-        let newState = {}
-        action.lessons.forEach(lesson => {
-            let { id } = lesson;
-            newState[id] = Object.assign({}, lesson, { id });
-        });
-        return newState;
+const initialState = {
+    lessons: [],
+    isFetching: false,
+    error: '',
+}
+
+export const fetchedLessons = createReducer(initialState, {
+    [FETCHING_LESSONS](state, action) {
+        return {
+            ...state,
+            lessons: [],
+            isFetching: true,
+        };
+    },
+
+    [FETCHED_LESSONS_SUCCESS](state, action) {
+        return {
+            ...state,
+            isFetching: false,
+            error: '',
+            lessons: action.lessons,
+        };
+    },
+
+    [FETCHED_LESSONS_FAILURE](state, action) {
+        return {
+            ...state,
+            isFetching: false,
+            error: action.error,
+        };
     },
 
 });

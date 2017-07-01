@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View, } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import { ActionCreators } from '../actions'
+import { bindActionCreators } from 'redux';
+import { ActionCreators } from '../actions';
+import Home from './Home';
+
 
 class AppContainer extends Component {
 
     render() {
-        return (
-            <view>
-                <Text>
-                    App container!!!!
-              </Text>
-            </view>
-        );
+        return <Home {...this.props} />
     }
 }
 
@@ -22,4 +18,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 
-export default connect(() => ({}), mapDispatchToProps)(AppContainer);
+export default connect(state => ({}), mapDispatchToProps)(AppContainer);
