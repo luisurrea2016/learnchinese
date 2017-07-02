@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducer from './app/reducers';
@@ -16,7 +16,7 @@ const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__
 function configureStore(initialState) {
   const enhancer = compose(
     applyMiddleware(
-      thunkMiddleware, //dispatch functions
+      thunkMiddleware,
       loggerMiddleware
     )
   );
@@ -24,7 +24,7 @@ function configureStore(initialState) {
   return createStore(reducer, initialState, enhancer);
 }
 
-const store = configureStore({});    
+const store = configureStore({});
 
 const App = () => (
   <Provider store={store}>

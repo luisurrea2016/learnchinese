@@ -7,14 +7,9 @@ import {
 
 export function fetchLessons() {
     return (dispatch, getSate) => {
-        const params = [
-            `p=1`,
-            'p=2'
-        ].join('&');
-
         dispatch(fetchingLessons());
 
-        return Api.get(`/api/?${params}`)
+        return Api.getLessons()
             .then(resp => dispatch(fetchedLessonsSuccess(resp)))
             .catch(error => dispatch(fetchedLessonsFailure(error)));
     };
